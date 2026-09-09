@@ -357,7 +357,7 @@ When we run `docker ps`, we see a **PORTS** column.
 Port binding means mapping a port of our host machine to a port inside the container.
 
 ```
-Host Machine                            Container
+Host Machine               Container
     8080   ─────────────>    3306
 ```
 
@@ -1610,7 +1610,7 @@ Container = temporary       Volume = persistent
 We map/mount a volume to a directory inside the container. Anything written to that mounted directory is stored in the volume.
 
 ```
-Container                                             Volume
+Container                         Volume
 /test/data  ───────────────→  Persistent Data
 ```
 
@@ -1658,9 +1658,9 @@ Desktop/data/
 **Important concept:** Although we created the files from inside the container, the files are actually stored in the host's `Desktop/data` directory because that directory is mounted into the container.
 
 ```
-Container                                                  Host
+Container                           Host
 /test/data  ─────────────────→  Desktop/data
-                              Bind Mount
+               Bind Mount
 ```
 
 ### 4. Test Persistence
@@ -1863,7 +1863,7 @@ Each network uses a different **network driver**, which determines how container
 The `bridge` network is the default network for containers created with `docker run` when no network is specified.
 
 ```
-                        Host
+              Host
       ┌───────────────────┐
       │                   │
       │    Container A    │
