@@ -1914,10 +1914,10 @@ Custom bridge networks provide better container-to-container communication. Most
 Example:
 
 ```
-           my-network
-          /                   \
-   MongoDB      Node App
-      ↑                           ↑
+        my-network
+       /           \
+   MongoDB       Node App
+      ↑            ↑
       └── mongo ───┘
 ```
 
