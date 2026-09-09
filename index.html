@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Simple Signup</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 500px;
+
+        background: white;
+        padding: 40px;
+
+        border-radius: 15px;
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .description {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+
+        border: 1px solid #ccc;
+        border-radius: 8px;
+
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+        padding: 13px;
+
+        border: none;
+        border-radius: 8px;
+
+        background: #4f7cff;
+        color: white;
+
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #3d68df;
+      }
+
+      #message {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Hi User 👋</h1>
+
+      <p class="description">Sign up to our simple application.</p>
+
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+
+          <input type="text" id="name" placeholder="John Doe" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="johndoe@email.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="password"
+            required
+          />
+        </div>
+
+        <button type="submit">Sign Up</button>
+      </form>
+
+      <p id="message"></p>
+    </div>
+
+    <script>
+      const signupForm = document.getElementById("signupForm");
+      const message = document.getElementById("message");
+
+      signupForm.addEventListener("submit", async (event) => {
+        // Don't reload the page
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // Send user to backend
+        const response = await fetch("/addUser", {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          message.textContent = "User created successfully!";
+
+          // Reset form
+          signupForm.reset();
+        } else {
+          message.textContent = data.message;
+        }
+      });
+    </script>
+  </body>
+</html>
